@@ -1,6 +1,6 @@
 # xls2html Twig Filter (for Craft CMS)
 
-This is a Craft CMS plugin that adds a `xls2html` filter to Twig templates.
+This is a [Craft CMS](http://craftcms.com) plugin that adds a `xls2html` filter to Twig templates.
 
 All it does is converting a tabulator separated set of data into a HTML `<table>` tag.
 
