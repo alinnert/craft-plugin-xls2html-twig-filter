@@ -50,5 +50,3 @@ Using `highlight`, `tableTag` and `tableHead`:
   </tr>
 </table>
 ~~~
-
-The parameter is about to change very soon. It will be more flexible and provide more options.
