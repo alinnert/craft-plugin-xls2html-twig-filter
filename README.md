@@ -11,30 +11,38 @@ This can be used to copy and paste a set of data from a spreadsheet software lik
 ### Signature
 
 ~~~
-xls2html( highlightRegEx = '' )
+xls2html( options )
 ~~~
+
+|Option|Default value|Description
+|------|-------------|-----------
+|highlight|"^$"|Regular Expression. If the content of a cell matches this RegEx it gets surrounded by `<b></b>`.
+|tableTag|`true`|If `true` a `<table>` tag gets printed. If you want to define your own `<table>` with its own class, id or other attributes, you can set this to `false`. In that case only a set of `<tr>` lines get printed.
+|tableHead|`false`|If `true` the first row uses `<th>` instead of `<td>`.
 
 ### Examples
 
-Just use the filter in your templates
+Just use the filter in your templates:
 
 ~~~twig
 {{ entry.xlsData|xls2html }}
 ~~~
 
-Currently it also has the ability to surround the content of a cell with a `<b>` element if the content matches the *Regular Expression* you pass as the first parameter.
+Using `highlight`, `tableTag` and `tableHead`:
 
 ~~~twig
-{{ entry.xlsData|xls2html('^Important:') }}
+<table class="some-table">
+    {{ entry.xlsData|xls2html({tableTag: false, tableHead: true, highlight: '^Important:'}) }}
+</table>
 ~~~
 
 **Outputs:**
 
 ~~~html
-<table>
+<table class="some-table">
   <tr>
-    <td>Hello</td>
-    <td>World</td>
+    <th>Hello</th>
+    <th>World</th>
   </tr>
   <tr>
     <td><b>Important: 42</b></td>

@@ -19,12 +19,28 @@ class XlsToHtmlTwigExtension extends \Twig_Extension
         );
     }
 
-    public function xls2html($input, $params)
+    public function xls2html($input, $params = [])
     {
-        $lines = explode(PHP_EOL, $input);
-        $output = '<table style="width: 100%;">';
+        if (!array_key_exists('highlight', $params)) {
+            $params['highlight'] = '^$';
+        }
 
-        foreach ($lines as $currentLine) {
+        if (!array_key_exists('tableTag', $params)) {
+            $params['tableTag'] = true;
+        }
+
+        if (!array_key_exists('tableHead', $params)) {
+            $params['tableHead'] = false;
+        }
+
+
+        $output = '';
+
+        if ($params['tableTag']) {
+            $output .= '<table>';
+        }
+
+        foreach (explode(PHP_EOL, $input) as $lineIndex => $currentLine) {
             $output .= '<tr>';
 
             $columns = preg_split('/\t/', $currentLine);
@@ -34,17 +50,25 @@ class XlsToHtmlTwigExtension extends \Twig_Extension
                     $currentColumn = '&nbsp;';
                 }
 
-                if (preg_match("/$params/", $currentColumn)) {
+                if (preg_match("/$params[highlight]/", $currentColumn)) {
                     $currentColumn = '<b>' . $currentColumn . '</b>';
                 }
 
-                $output .= '<td>' . $currentColumn . '</td>';
+                if ($params['tableHead'] && $lineIndex === 0) {
+                    $output .= '<th>' . $currentColumn . '</th>';
+                }
+                else {
+                    $output .= '<td>' . $currentColumn . '</td>';
+                }
             }
 
             $output .= '</tr>';
         }
 
-        $output .= '</table>';
+        if ($params['tableTag']) {
+            $output .= '</table>';
+        }
+
 
         return $output;
     }
