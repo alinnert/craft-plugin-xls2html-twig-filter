@@ -8,6 +8,14 @@ This can be used to copy and paste a set of data from a spreadsheet software lik
 
 ## Usage
 
+### Signature
+
+~~~
+xls2html( highlightRegEx = '' )
+~~~
+
+### Examples
+
 Just use the filter in your templates
 
 ~~~twig
