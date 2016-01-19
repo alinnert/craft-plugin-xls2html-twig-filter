@@ -14,7 +14,7 @@ Just use the filter in your templates
 {{ entry.xlsData|xls2html }}
 ~~~
 
-Currently it also has the ability to surround the content of a cell with a `<b>` element if it matches the RegEx you pass as the filter parameter.
+Currently it also has the ability to surround the content of a cell with a `<b>` element if the content matches the *Regular Expression* you pass as the first parameter.
 
 ~~~twig
 {{ entry.xlsData|xls2html('^Important:') }}
